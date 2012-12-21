@@ -7,9 +7,8 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<springframework.version>3.1.1.RELEASE</springframework.version>
-		<spring.integration.version>2.2.0.M2</spring.integration.version>
-		<jackson.version>1.9.7</jackson.version>
+		<springframework.version>3.1.2.RELEASE</springframework.version>
+		<jackson.version>1.9.9</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -170,13 +169,6 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.14</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.1.2.Final</version>
@@ -192,12 +184,6 @@
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>1.0.0.Final</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.1.2</version>
 		</dependency>
 
 		<!-- start -->
