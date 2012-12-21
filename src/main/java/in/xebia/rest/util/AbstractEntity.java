@@ -11,7 +11,7 @@ import javax.persistence.PreUpdate;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- * Abstract base class for entities. Allows parameterization of id type, chooses auto-generation and implements
+ * Abstract base class for entities. Allows parameterisation of id type, chooses auto-generation and implements
  * {@link #equals(Object)} and {@link #hashCode()} based on that id. 
  * Also adds the date created and last modified fields for all entities.
  * 
@@ -29,12 +29,12 @@ public abstract class AbstractEntity<PK extends Serializable> extends AbstractPe
 	private Date lastModified;
 	
 	@PrePersist
-	public void onCreate(){
+	public void onCreate() {
 		this.dateCreated = this.lastModified = new Date();
 	}
 	
 	@PreUpdate
-	public void onUpdate(){
+	public void onUpdate() {
 		this.lastModified = new Date();
 	}
 
@@ -54,11 +54,11 @@ public abstract class AbstractEntity<PK extends Serializable> extends AbstractPe
 		this.lastModified = lastModified;
 	}
 	
-	public PK getId(){
+	public PK getId() {
 		return super.getId();
 	}
 	
-	public void setId(PK id){
+	public void setId(PK id) {
 		super.setId(id);
 	}
 }

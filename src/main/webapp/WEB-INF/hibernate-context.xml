@@ -22,7 +22,8 @@
 		p:jdbcUrl="${app.jdbc.url}" p:user="${app.jdbc.username}" p:password="${app.jdbc.password}"
 		p:acquireIncrement="5" p:idleConnectionTestPeriod="60" p:maxPoolSize="10"
 		p:maxStatements="50" p:minPoolSize="5" />
-
+		
+		
 	<!-- Declare a JPA entityManagerFactory -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -41,10 +42,6 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<!-- Custom configuration for the custom implementation based on JDBC <bean 
-		id="userRepositoryImpl" class="org.springframework.data.jpa.example.repository.UserRepositoryJdbcImpl"> 
-		<property name="dataSource" ref="dataSource" /> </bean> -->
 	<jpa:repositories base-package="in.xebia.rest.repository" />
-
 
 </beans>
