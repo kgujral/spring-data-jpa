@@ -1,7 +1,10 @@
 package in.xebia.rest.controller;
 
-import in.xebia.rest.domain.User;
+import in.xebia.rest.dto.UserDto;
+import in.xebia.rest.exception.CustomException;
 import in.xebia.rest.service.UserService;
+import in.xebia.rest.util.RestResponse;
+import in.xebia.rest.util.transformer.UserTransformer;
 
 import java.util.List;
 
@@ -18,49 +21,54 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping("/users")
-public class RestController {
+public class RestController extends BaseController {
 
 	@Autowired
 	private UserService userService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<User> getAllUsers(
-			@RequestParam(required = true) int pageNumber,
-			@RequestParam(required = true) int pageSize) {
-		return userService.findAll(pageNumber, pageSize);
+	public RestResponse getAllUsers(@RequestParam int pageNumber, @RequestParam int pageSize) {
+		List<UserDto> dtos = UserTransformer.usersToDtos(userService.findAll(pageNumber, pageSize));
+		RestResponse response = new RestResponse(Boolean.TRUE, "", dtos);
+		return response;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteUser(@PathVariable Long id) {
+	public void deleteUser(@PathVariable Long id) throws CustomException {
 		userService.delete(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	public void editUser(@PathVariable Long id, @RequestBody User user) {
-		userService.edit(id, user);
+	public void editUser(@PathVariable Long id, @RequestBody UserDto dto) throws CustomException {
+		validateDto(dto);
+		userService.edit(id, UserTransformer.dtoToUser(dto));
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody
-	User addNewUser(@RequestBody User user) {
-		return userService.saveOrUpdate(user);
+	public @ResponseBody RestResponse addNewUser(@RequestBody UserDto dto) throws CustomException {
+		validateDto(dto);
+		dto = UserTransformer.userToDto(userService.save(UserTransformer.dtoToUser(dto)));
+		RestResponse response = new RestResponse(Boolean.TRUE, "", dto);
+		return response;
 	}
-
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody
-	User getOne(@PathVariable Long id) {
-		return userService.findById(id);
+	public @ResponseBody RestResponse getOne(@PathVariable Long id) {
+		UserDto dto = UserTransformer.userToDto(userService.findById(id));
+		RestResponse response = new RestResponse(Boolean.TRUE, "", dto);
+		return response;
 	}
 
 	@RequestMapping(value = "/count", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody
-	long getCount() {
-		return userService.count();
+	public @ResponseBody RestResponse getCount() {
+		Long count = userService.count();
+		RestResponse response = new RestResponse(Boolean.TRUE, "", count);
+		return response;
 	}
 }

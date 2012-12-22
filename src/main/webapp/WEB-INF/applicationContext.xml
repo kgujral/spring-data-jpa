@@ -28,6 +28,7 @@
 	<!-- For auto logging of Spring Initialized beans -->
 	<aop:aspectj-autoproxy />
     <bean class="in.xebia.rest.util.LoggerAspect" />
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 	
 	<!-- Load Hibernate related configuration -->
 	<import resource="hibernate-context.xml" />

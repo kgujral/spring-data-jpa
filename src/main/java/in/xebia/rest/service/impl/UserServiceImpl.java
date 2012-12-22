@@ -1,8 +1,10 @@
 package in.xebia.rest.service.impl;
 
 import in.xebia.rest.domain.User;
+import in.xebia.rest.exception.CustomException;
 import in.xebia.rest.repository.UserRepository;
 import in.xebia.rest.service.UserService;
+import in.xebia.rest.util.RestConstants;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User saveOrUpdate(User user) {
+	public User save(User user) {
 		return userRepository.save(user);
 	}
 	
@@ -37,8 +39,12 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void delete(Long id) {
-		userRepository.delete(id);
+	public void delete(Long id) throws CustomException {
+		try {
+			userRepository.delete(id);
+		} catch(Exception ex) {
+			throw new CustomException(RestConstants.NO_SUCH_USER_EXISTS + id);
+		}
 	}
 	
 	@Override
@@ -57,11 +63,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void edit(Long id, User user) {
+	public void edit(Long id, User user) throws CustomException {
 		User oldUser = findById(id);
 		if(oldUser != null) {
 			copyUser(oldUser, user);
 			userRepository.save(oldUser);
+		} else {
+			throw new CustomException(RestConstants.NO_SUCH_USER_EXISTS + id);
 		}
 	}
 
