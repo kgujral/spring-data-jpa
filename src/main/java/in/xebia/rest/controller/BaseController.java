@@ -31,9 +31,9 @@ public class BaseController {
 		return new RestResponse(Boolean.FALSE, getErrorMessage(error), null);
 	}
 	
-	private String getErrorMessage(Exception error) {
+	private List<String> getErrorMessage(Exception error) {
 		if(error instanceof CustomException) {
-			return error.getMessage();
+			return ((CustomException) error).getMessages();
 		}
 		String message = error.getMessage();
 		message = message.split(";")[0];
@@ -41,7 +41,9 @@ public class BaseController {
 		if(message.length() > 250) {
 			message = RestConstants.GLOBAL_ERROR;
 		}
-		return message;
+		List<String> messages = new ArrayList<String>();
+		messages.add(message);
+		return messages;
 	}
 	
 	protected <T> void validateDto(T dto) throws CustomException {
@@ -51,7 +53,7 @@ public class BaseController {
 			errorMessages.add(c.getMessage());
 		}
 		if(!errorMessages.isEmpty()) {
-			throw new CustomException(errorMessages.toString());
+			throw new CustomException(errorMessages);
 		}
 	}
 }

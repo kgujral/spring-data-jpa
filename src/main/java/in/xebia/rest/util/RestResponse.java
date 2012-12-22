@@ -1,7 +1,6 @@
 package in.xebia.rest.util;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RestResponse implements Serializable {
@@ -42,16 +41,6 @@ public class RestResponse implements Serializable {
 		this.data = data;
 	}
 
-	public RestResponse(Boolean success, String message, Object data) {
-		this(success, getMsg(message), data);
-	}
-
-	private static List<String> getMsg(String message) {
-		List<String> temp = new ArrayList<String>();
-		temp.add(message);
-		return temp;
-	}
-	
 	public RestResponse() {
 	}
 	

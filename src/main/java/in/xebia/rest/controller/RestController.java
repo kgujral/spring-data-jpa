@@ -30,7 +30,7 @@ public class RestController extends BaseController {
 	@ResponseBody
 	public RestResponse getAllUsers(@RequestParam int pageNumber, @RequestParam int pageSize) {
 		List<UserDto> dtos = UserTransformer.usersToDtos(userService.findAll(pageNumber, pageSize));
-		RestResponse response = new RestResponse(Boolean.TRUE, "", dtos);
+		RestResponse response = new RestResponse(Boolean.TRUE, null, dtos);
 		return response;
 	}
 
@@ -52,7 +52,7 @@ public class RestController extends BaseController {
 	public @ResponseBody RestResponse addNewUser(@RequestBody UserDto dto) throws CustomException {
 		validateDto(dto);
 		dto = UserTransformer.userToDto(userService.save(UserTransformer.dtoToUser(dto)));
-		RestResponse response = new RestResponse(Boolean.TRUE, "", dto);
+		RestResponse response = new RestResponse(Boolean.TRUE, null, dto);
 		return response;
 	}
 	
@@ -60,7 +60,7 @@ public class RestController extends BaseController {
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody RestResponse getOne(@PathVariable Long id) {
 		UserDto dto = UserTransformer.userToDto(userService.findById(id));
-		RestResponse response = new RestResponse(Boolean.TRUE, "", dto);
+		RestResponse response = new RestResponse(Boolean.TRUE, null, dto);
 		return response;
 	}
 
@@ -68,7 +68,7 @@ public class RestController extends BaseController {
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody RestResponse getCount() {
 		Long count = userService.count();
-		RestResponse response = new RestResponse(Boolean.TRUE, "", count);
+		RestResponse response = new RestResponse(Boolean.TRUE, null, count);
 		return response;
 	}
 }
