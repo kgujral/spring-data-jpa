@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -23,6 +25,13 @@ public class BaseController {
 	
 	@Autowired
 	protected Validator validator;
+	
+	
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public String home() {
+		return "redirect:/resources";
+	}
+	
 	
 	@ExceptionHandler
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

@@ -34,6 +34,22 @@ public class RestController extends BaseController {
 		return response;
 	}
 
+	@RequestMapping(value="/page/{pageNumber}", method = RequestMethod.GET)
+	@ResponseBody
+	public RestResponse getAllUsersPaginated(@PathVariable int pageNumber) {
+		List<UserDto> dtos = UserTransformer.usersToDtos(userService.findAll(pageNumber, 10));
+		RestResponse response = new RestResponse(Boolean.TRUE, null, dtos);
+		return response;
+	}
+
+	@RequestMapping(value="/page/{pageNumber}/{pageSize}", method = RequestMethod.GET)
+	@ResponseBody
+	public RestResponse getAllUsersPaginatedF(@PathVariable int pageNumber, @PathVariable int pageSize) {
+		List<UserDto> dtos = UserTransformer.usersToDtos(userService.findAll(pageNumber, pageSize));
+		RestResponse response = new RestResponse(Boolean.TRUE, null, dtos);
+		return response;
+	}
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteUser(@PathVariable Long id) throws CustomException {

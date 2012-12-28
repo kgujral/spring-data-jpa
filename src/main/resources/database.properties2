@@ -1,0 +1,8 @@
+# database properties
+
+app.jdbc.driverClassName=com.mysql.jdbc.Driver
+app.jdbc.url=jdbc:mysql://localhost:3306/rest-data
+app.jdbc.username=root
+app.jdbc.password=root
+
+hibernate.showSql=true
