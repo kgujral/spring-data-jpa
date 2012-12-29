@@ -8,6 +8,8 @@ import in.xebia.rest.util.transformer.UserTransformer;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -28,9 +30,13 @@ public class RestController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public RestResponse getAllUsers(@RequestParam int pageNumber, @RequestParam int pageSize) {
+	public RestResponse getAllUsers(@RequestParam int pageNumber, @RequestParam int pageSize, HttpServletResponse  httpResponse) {
 		List<UserDto> dtos = UserTransformer.usersToDtos(userService.findAll(pageNumber, pageSize));
 		RestResponse response = new RestResponse(Boolean.TRUE, null, dtos);
+		httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+		httpResponse.setHeader("Access-Control-Allow-Methods", "GET");
+		httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type");
+		httpResponse.setHeader("Access-Control-Max-Age", "86400");
 		return response;
 	}
 
