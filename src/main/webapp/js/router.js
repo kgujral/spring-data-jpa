@@ -1,11 +1,16 @@
-define(['backbone', 'util', 'views/projects/list'], function(Backbone, UTIL, ProjectListView) {
+define(['backbone', 'util', 'views/projects/list', 'views/home'], function(Backbone, UTIL, ProjectListView, HomeView) {
     var AppRouter = Backbone.Router.extend({
         routes: {
-            'projects': 'showProjects'
+            'projects': 'showProjects',
+			'home'	: 'showHome'
         },
         
         showProjects: function() {
             UTIL.renderView(new ProjectListView());
+        },
+		
+		showHome: function() {
+            UTIL.renderView(new HomeView());
         }
         
     });

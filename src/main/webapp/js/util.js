@@ -1,6 +1,5 @@
-define([], function() {
-    
-    var utilFunctions =  {
+define(function() {
+    return  {
         renderView : function(view) {
             if (this.currentView) {
                 this.currentView.close();
@@ -9,6 +8,4 @@ define([], function() {
             this.currentView.render();
         }
     };
-    
-    return utilFunctions;
 });
