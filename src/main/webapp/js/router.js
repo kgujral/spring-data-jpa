@@ -1,24 +1,20 @@
-define(['jquery', 'underscore', 'backbone', 'views/projects/list'], function($, _, Backbone, ProjectListView) {
+define(['backbone', 'util', 'views/projects/list'], function(Backbone, UTIL, ProjectListView) {
     var AppRouter = Backbone.Router.extend({
         routes: {
-            'projects': 'showProjects',
-            '*actions': 'defaultAction'
+            'projects': 'showProjects'
+        },
+        
+        showProjects: function() {
+            UTIL.renderView(new ProjectListView());
         }
+        
     });
 
     var initialize = function() {
-        var app_router = new AppRouter;
-        app_router.on('route:showProjects', function() {
-            var projectListView = new ProjectListView();
-            projectListView.render();
-        });
-
-        app_router.on('route:defaultAction', function(actions) {
-            console.log('No route:', actions);
-        });
-
+        new AppRouter();
         Backbone.history.start();
     };
+    
     return {
         initialize: initialize
     };
