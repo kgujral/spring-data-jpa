@@ -29,7 +29,7 @@ public class BaseController {
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String home() {
-		return "redirect:/resources";
+		return "index";
 	}
 	
 	
