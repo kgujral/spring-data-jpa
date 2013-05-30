@@ -15,10 +15,8 @@ define([
   });
 
   var initialize = function() {
-      alert("init");
     var app_router = new AppRouter;
     app_router.on('route:showProjects', function(){
-      alert('cald shoe');
       var projectListView = new ProjectListView();
       projectListView.render();
     });

@@ -10,9 +10,10 @@ define([
     initialize: function(){
       this.collection = new ProjectsCollection();
       this.collection.add({ name: "Ginger Kid"});
+      this.collection.add({ name: "Yo Yo Honey Singh !"});
       // Compile the template using Underscores micro-templating
-      alert(JSON.stringify(this.collection));
-      var compiledTemplate = _.template(projectListTemplate, { projects: JSON.stringify(this.collection) } );
+      console.log(this.collection.toJSON());
+      var compiledTemplate = _.template(projectListTemplate, { projects: this.collection.toJSON() } );
       this.$el.html(compiledTemplate);
     }
   });
