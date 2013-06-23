@@ -3,21 +3,23 @@ require.config({
     
     paths: {
         jquery: 'libs/jquery-1.8.3',
+        backbone: 'libs/backbone-0.9.9-min',
         underscore: 'libs/underscore-1.4.4-min',
-        backbone: 'libs/backbone-0.9.9-min'
+        localStorage: 'libs/backbone.localStorage-min'
     },
     
     shim: {
-        'backbone': {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
         'underscore': {
             exports: '_'
         },
+        'backbone': {
+            deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+        }
     }
 });
 
-require(['app'], function(App) {
-    App.initialize();
+require(['controller/router'], function(Router) {
+    Router.initialize();
 });
+
