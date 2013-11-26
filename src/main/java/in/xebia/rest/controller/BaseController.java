@@ -13,25 +13,21 @@ import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Controller
 public class BaseController {
 	
 	@Autowired
 	protected Validator validator;
 	
+	public static final List<String> VALID_DOMAINS = new ArrayList<String>();
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String home() {
-		return "redirect:/resources";
+	static {
+		VALID_DOMAINS.add("prontoapps.com");
+		VALID_DOMAINS.add("localhost");
 	}
-	
 	
 	@ExceptionHandler
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
